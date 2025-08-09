@@ -35,7 +35,7 @@ const NavBar = () => {
 
           {user && (
             <div className="dropdown dropdown-end flex items-center">
-              <p className='text-white mx-5'>Welcome {user?.user.firstName}</p>
+              <p className='text-white mx-5'>Welcome {user?.firstName}</p>
 
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
               

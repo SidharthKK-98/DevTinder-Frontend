@@ -5,6 +5,7 @@ import { addUser } from '../utils/userSlice'
 import { useNavigate } from 'react-router-dom'
 import { BASE_URL } from '../utils/constants'
 
+
 const Login = () => {
 
     const [emailId,setEmailId]=useState("")
@@ -18,7 +19,7 @@ const Login = () => {
     const handleLogin=async()=>{
         try{
             const res= await axios.post(BASE_URL+"/login",{
-            emailId:"ashok@gmail.co",password:"Ashok@12"
+            emailId:"ashok@gmail.com",password:"Ashok@123"
             },
              {withCredentials:true})
 
