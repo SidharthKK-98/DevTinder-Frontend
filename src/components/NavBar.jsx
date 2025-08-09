@@ -1,20 +1,41 @@
+import axios from 'axios'
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { BASE_URL } from '../utils/constants'
+import { removeUser } from '../utils/userSlice'
 
 const NavBar = () => {
 
+
   const user=useSelector((store)=>store.user)
+  const dispatch=useDispatch()
+  const navigate=useNavigate()
+  console.log(user);
+
+  const handleLogout=async()=>{
+    try{
+    await axios.post(BASE_URL+"/logout",{},{withCredentials:true})
+    dispatch(removeUser())
+    navigate("/login",{replace:true})
+    }
+    catch(err){
+      console.log(err);
+      
+    }
+  }
+  
   return (
     <div> 
           <div className="navbar bg-base-200 shadow-sm">
         <div className="flex-1">
-          <a className="btn btn-ghost text-xl">DevTinder </a>
+          <Link to={user?"/feed":"/login"} className="btn btn-ghost text-xl">DevTinder </Link>
         </div>
         <div className="flex gap-2">
 
           {user && (
             <div className="dropdown dropdown-end flex items-center">
-              <p className='text-white mx-5'>Welcome {user.data.firstName}</p>
+              <p className='text-white mx-5'>Welcome {user?.user.firstName}</p>
 
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
               
@@ -31,13 +52,13 @@ const NavBar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3  w-52 p-2 shadow ">
               <li>
-                <a className="justify-between">
+                <Link to={"/profile"} className="justify-between">
                   Profile
                   <span className="badge">New</span>
-                </a>
+                </Link>
               </li>
               <li><a>Settings</a></li>
-              <li><a>Logout</a></li>
+              <li><a onClick={handleLogout}>Logout</a></li>
             </ul>
           </div>
           )}
