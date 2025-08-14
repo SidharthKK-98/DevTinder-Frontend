@@ -11,7 +11,7 @@ const NavBar = () => {
   const user=useSelector((store)=>store.user)
   const dispatch=useDispatch()
   const navigate=useNavigate()
-  console.log(user);
+  // console.log(user);
 
   const handleLogout=async()=>{
     try{
@@ -35,7 +35,7 @@ const NavBar = () => {
 
           {user && (
             <div className="dropdown dropdown-end flex items-center">
-              <p className='text-white mx-5'>Welcome {user?.firstName}</p>
+              <p className='text-white mx-5'>Welcome {user?.firstName+" "+user?.lastName}</p>
 
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
               
@@ -44,7 +44,7 @@ const NavBar = () => {
                 <div className="w-10 rounded-full">
                 <img
                   alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                  src={user?.photoUrl} />
               </div>
               
             </div>
@@ -57,7 +57,7 @@ const NavBar = () => {
                   <span className="badge">New</span>
                 </Link>
               </li>
-              <li><a>Settings</a></li>
+              <li><Link to={"/connections"}>Connections</Link></li>
               <li><a onClick={handleLogout}>Logout</a></li>
             </ul>
           </div>
