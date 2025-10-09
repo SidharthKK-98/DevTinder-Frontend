@@ -1,6 +1,6 @@
 import React from 'react'
 
-const UserCard = ({user}) => {
+const UserCard = ({user,fromFeed}) => {
 
     const {firstName,lastName,age,gender,photoUrl,about}=user
     
@@ -17,11 +17,14 @@ const UserCard = ({user}) => {
             { age &&(<h2>{age}</h2>)}      
              {gender&&(<h2>{gender}</h2>)}
             { about&&(  <p>{about}</p>)}
-             <div className="card-actions justify-center">
-            <button className="btn btn-success btn-green-400">Interested</button>
-            <button className="btn btn-error">Reject</button>
+            
+            {fromFeed&&(
+              <div className="card-actions justify-center">
+              <button className="btn btn-success btn-green-400">Interested</button>
+              <button className="btn btn-error">Reject</button>
 
-            </div>
+             </div>
+            )}
         </div>
         </div>
     </div>

@@ -46,7 +46,7 @@ function Connections() {
 
         {      connections.map((connection)=>{
             return (
-            <div className='flex justify-around text-center font-bold my-5 p-5 bg-base-300 rounded-2xl w-1/2 mx-auto'>
+            <div key={connection._id} className='flex justify-around text-center font-bold my-5 p-5 bg-base-300 rounded-2xl w-1/2 mx-auto'>
              <div>
                     <img 
                         src={connection.photoUrl} 
