@@ -14,12 +14,11 @@ const Feed = () => {
     
 
  const getFeed=async()=>{
-    if(feedData )return
+    if(feedData && feedData.data && feedData.data.length > 0 )return
 
     try{
-        const res=await axios.get(BASE_URL+"/user/feed?page=1&limit=2",{withCredentials:true})
+        const res=await axios.get(BASE_URL+"/user/feed?page=1&limit=3",{withCredentials:true})
         dispatch(addFeed(res.data))
-        // console.log(res.data);
         
     }
     catch(err){
@@ -35,9 +34,14 @@ const Feed = () => {
 
  },[])
 
+if(!feedData)return
+ if(feedData.data.length == 0)return <div>
+   <h1 className='text-center mt-5 font-bold text-2xl'>No new Users Found</h1>
+ </div>
 
   return (
-   feedData && (<div className='flex justify-center items-center mt-6'>
+
+   feedData?.data?.length>0 && (<div className='flex justify-center items-center mt-6'>
       <UserCard user={feedData?.data[0]} fromFeed={true}/>
     </div>)
   )
