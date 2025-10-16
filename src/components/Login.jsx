@@ -19,12 +19,20 @@ const Login = () => {
     const navigate=useNavigate()
     const [Error,setError]=useState("")
     
-    
+    useEffect(() => {
+  if (Error) setError("");
+}, [emailId, password, firstName, lastName]);
+
 
     const handleLogin=async()=>{
+
+            if (!emailId || !password) {
+        setError("Please fill in all fields");
+        return;
+    }
         try{
             const res= await axios.post(BASE_URL+"/login",{
-            emailId:"jenny@gmail.com",password:"jenny@123"
+            emailId,password
             },
              {withCredentials:true})
 
@@ -39,13 +47,20 @@ const Login = () => {
         catch(err){
             console.error(err.response.data)
             setError(err.response.data.error)
-            // alert(err.response.data.error)
+            console.log(Error)
+            //  alert(err.response.data)
         }
         
     }
 
 
     const handleSignUp=async()=>{
+
+        if (!firstName || !lastName || !emailId || !password) {
+
+            setError("Please fill in all fields");
+            return;
+        }
         try{
 
             const res= await axios.post(BASE_URL+"/signup",{
@@ -134,7 +149,7 @@ const Login = () => {
             <button className="btn btn-primary "onClick={isLoginForm ? handleLogin : handleSignUp}>{isLoginForm ? "Login" : "SignUp"}</button>
             </div>
 
-            <p className='text-center font-semibold text-blue-500 mt-2 cursor-pointer'onClick={()=>setIsLoginForm((value)=>!value)}>{isLoginForm ? "New User? SignUp here" : "Existing User? Login here"}</p>
+            <p className='text-center font-semibold text-blue-500 mt-2 cursor-pointer'onClick={()=>setIsLoginForm((value)=>!value ,setError(""))}>{isLoginForm ? "New User? SignUp here" : "Existing User? Login here"}</p>
             </div>
         </div>
     </div>
