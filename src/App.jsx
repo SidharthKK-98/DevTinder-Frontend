@@ -9,6 +9,7 @@ import appStore from './utils/appStore'
 import Feed from './components/Feed'
 import Connections from './components/Connections'
 import Request from './components/Request'
+import Premium from './components/Premium'
 
 function App() {
 
@@ -26,6 +27,8 @@ function App() {
               <Route path='/request' element={<Request/>}/>
 
               <Route path='/profile' element={<Profile/>}/>
+              <Route path='/premium' element={<Premium/>}/>
+
 
 
             
