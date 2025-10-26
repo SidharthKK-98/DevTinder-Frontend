@@ -46,7 +46,7 @@ function Request() {
 
  if(!requests)return
 
-    if(requests.length==0)return <div><h1 className='text-2xl font-bold'>No Request Found</h1></div>
+    if(requests.length==0)return <div><h1 className='text-center mt-6 font-bold text-3xl text-orange-300'>No Request Found</h1></div>
 
   return (
 

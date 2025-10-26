@@ -1,39 +1,62 @@
 import axios from 'axios';
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 import { BASE_URL } from '../utils/constants';
 
 function Premium() {
 
+  const [isPremiumUser,setIsPremiumUser]=useState(false)
 
+    const verifyPremiumUser=async()=>{
+
+      try{
+
+        const res =await axios.get(BASE_URL+"/premium/verify",{withCredentials:true})
+
+        if(res.data.isPremium){
+          setIsPremiumUser(true)
+        }
+
+      }
+      catch(err){
+        res.json({msg:err.message}) 
+      }
+
+    }
+
+    useEffect(() => {
+      verifyPremiumUser()
+    }, [])
+    
     const handleBuyClick=async(type)=>{
 
       try{
 
-          const order= await axios.post(BASE_URL+"/payment/create",
-            {membershipType:type},
-            {withCredentials:true})
+            const order= await axios.post(BASE_URL+"/payment/create",
+              {membershipType:type},
+              {withCredentials:true})
 
-            const{key,amount,currency,orderId,notes}=order.data
+              const{key,amount,currency,orderId,notes}=order.data
 
-       const options = {
-        key, 
-        amount ,
-        currency,
-        name: 'DevTinder',
-        description: 'Connect to Developers',
-        order_id:orderId, 
-        prefill: {
-          name:notes.firstName+" "+notes.lastName,
-          membershipType:notes.membershipType,
-          contact: '9999999999'
-        },
-        theme: {
-          color: '#F37254'
-        },
-      };
+            const options = {
+                    key, 
+                    amount ,
+                    currency,
+                    name: 'DevTinder',
+                    description: 'Connect to Developers',
+                    order_id:orderId, 
+                    prefill: {
+                      name:notes.firstName+" "+notes.lastName,
+                      membershipType:notes.membershipType,
+                      contact: '9999999999'
+                    },
+                    theme: {
+                      color: '#F37254'
+                    },
+                    handler:verifyPremiumUser
+            };
 
-        const rzp = new window.Razorpay(options);
-        rzp.open();
+            const rzp = new window.Razorpay(options);
+            rzp.open();
 
       }
       catch(err){
@@ -49,8 +72,10 @@ function Premium() {
 
     }
 
+
   return (
-    <div className='m-4'>
+    isPremiumUser?<div className='text-center mt-6 font-bold text-3xl text-orange-300'>You Are A Premium User</div> :
+   ( <div className='m-4'>
         <div className="flex w-full mt-6">
         <div className="card bg-base-300 rounded-box grid h-auto p-4 grow place-items-center">
             <h1 className='font-bold text-2xl'>Silver Membership</h1>
@@ -75,7 +100,7 @@ function Premium() {
 
         </div>
         </div>
-    </div>
+    </div>)
   )
 }
 

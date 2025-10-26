@@ -36,7 +36,7 @@ function Connections() {
 
     if(!connections)return
 
-    if(connections.length==0)return <div><h1 className='text-2xl font-bold'>No Connections Found</h1></div>
+    if(connections.length==0)return <div><h1 className='text-center mt-6 font-bold text-3xl text-orange-300'>No Connections Found</h1></div>
 
   return (
 
