@@ -10,6 +10,7 @@ import Feed from './components/Feed'
 import Connections from './components/Connections'
 import Request from './components/Request'
 import Premium from './components/Premium'
+import Chat from './components/Chat'
 
 function App() {
 
@@ -28,6 +29,8 @@ function App() {
 
               <Route path='/profile' element={<Profile/>}/>
               <Route path='/premium' element={<Premium/>}/>
+              <Route path='/chat/:targetUserId' element={<Chat/>}/>
+
 
 
 

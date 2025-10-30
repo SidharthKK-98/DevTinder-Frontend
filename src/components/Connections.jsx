@@ -3,6 +3,8 @@ import { BASE_URL } from '../utils/constants'
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { addConnection } from '../utils/connectionSlice';
+import { Link } from "react-router-dom";
+
 
 function Connections() {
 
@@ -46,20 +48,28 @@ function Connections() {
 
         {      connections.map((connection)=>{
             return (
-            <div key={connection._id} className='flex justify-around text-center font-bold my-5 p-5 bg-base-300 rounded-2xl w-1/2 mx-auto'>
-             <div>
-                    <img 
-                        src={connection.photoUrl} 
-                        alt={`${connection.firstName} ${connection.lastName}`} 
-                        style={{ width: "100px", height: "100px", objectFit: "cover", borderRadius: "50%" }} 
-                    />
-             </div>  
-            <div className=''>
-                <div className='text-3xl' key={connection._id}>{connection.firstName+" "+connection.lastName}</div>
-                <div key={connection._id}>{connection.age+" "+connection.gender}</div>
-                <div key={connection._id}>{connection.about}</div>
+            <div key={connection._id} className='flex justify-between text-center font-bold my-5 p-5 bg-base-300 rounded-2xl w-1/2 mx-auto items-center'>
+                    <div className='flex justify-around items-center '>   
+                                <div>
+                                        <img 
+                                            src={connection.photoUrl} 
+                                            alt={`${connection.firstName} ${connection.lastName}`} 
+                                            style={{ width: "100px", height: "100px", objectFit: "cover", borderRadius: "50%" }} 
+                                        />
+                                </div>  
+                                
+                                <div className='mx-10'>
+                                    <div className='text-3xl' key={connection._id}>{connection.firstName+" "+connection.lastName}</div>
+                                    <div key={connection._id}>{connection?.age+" "+connection?.gender}</div>
+                                    <div key={connection._id}>{connection?.about}</div>
 
-            </div>
+                                </div>
+
+                    </div>
+    
+
+                  <Link to={"/chat/"+connection._id}> <button className='btn btn-secondary '>Chat</button></Link> 
+            
 
             </div>
 
