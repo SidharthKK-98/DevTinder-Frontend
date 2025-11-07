@@ -91,7 +91,7 @@ function Connections() {
     <div>
       <h1 className=' text-center text-2xl font-bold '>Connections</h1>
 
-        {      connections.map((connection)=>{
+        {      connections?.map((connection)=>{
             return (
                 <div >
                      <div key={connection._id  } className='relative flex justify-between text-center font-bold my-5 p-5 bg-base-300 rounded-2xl w-1/2 mx-auto items-center'>
@@ -118,7 +118,7 @@ function Connections() {
                   <Link to={"/chat/"+connection._id}> <button  className='btn btn-secondary  '>Chat
 
                     </button></Link> 
-                    {chat.includes(connection._id.toString())&&
+                    {chat?.includes(connection._id.toString())&&
                         (<span className="absolute top-2 right-2 indicator-item status status-success "></span>)
 
                     }

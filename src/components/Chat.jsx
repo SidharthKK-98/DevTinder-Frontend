@@ -14,7 +14,6 @@ function Chat() {
     const {targetUserId}=useParams()
     const [messages,setMessages]=useState([])
     const [newMessage,setNewMessage]=useState("")
-    // const dispatch=useDispatch()
 
     const fetchMessages=async()=>{
 
@@ -91,18 +90,18 @@ function Chat() {
             messages?.map((msg,index)=>{
               return  (
 
-                <div key={index} className={"chat "+(user.firstName===msg.senderId.firstName? "chat-end":"chat-start")}>
+                <div key={index} className={"chat "+(user.firstName===msg.senderId?.firstName? "chat-end":"chat-start")}>
                 <div className="chat-image avatar">
                     <div className="w-10 rounded-full">
                     <img
                         alt="Tailwind CSS chat bubble component"
-                        src={msg.senderId.photoUrl}
+                        src={msg.senderId?.photoUrl}
                     />
                     </div>
                  </div>
 
                  <div className="chat-header">
-                            {msg.senderId.firstName+" "+msg.senderId.lastName}
+                            {msg.senderId?.firstName+" "+msg.senderId?.lastName}
 
                             <time className="text-xs opacity-50">{new Date(msg.createdAt).toLocaleTimeString()}</time>
                  </div>
