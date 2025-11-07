@@ -4,6 +4,7 @@ import { createSocketConnection } from '../utils/socket'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { BASE_URL } from '../utils/constants'
+import { addOnlineUsers } from '../utils/chatSlice'
 
 
 function Chat() {
@@ -14,6 +15,34 @@ function Chat() {
     const {targetUserId}=useParams()
     const [messages,setMessages]=useState([])
     const [newMessage,setNewMessage]=useState("")
+
+
+     useEffect(() => {
+    
+            if(!userId){
+            return
+            }
+            
+            const socket= createSocketConnection()
+    
+            socket.emit("usersConnected",{userId})
+    
+            socket.on("onlineUsers",(onlineUsers)=>{
+    
+             dispatch(addOnlineUsers(onlineUsers))
+    
+            })
+    
+    
+             return ()=>{
+                    socket.disconnect()
+                }
+    
+    
+    
+        }, [userId])
+    
+
 
     const fetchMessages=async()=>{
 
@@ -105,7 +134,7 @@ function Chat() {
                  </div>
 
                  <div className="chat-header">
-                            {msg.senderId?.firstName+" "+msg.senderId?.lastName}
+                            {(user.firstName===msg.senderId?.firstName?"You":msg.senderId?.firstName+" "+msg.senderId?.lastName)}
 
                             <time className="text-xs opacity-50">{new Date(msg.createdAt).toLocaleTimeString()}</time>
                  </div>

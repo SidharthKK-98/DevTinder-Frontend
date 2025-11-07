@@ -19,7 +19,6 @@ function Connections() {
     console.log( connections)
     const chat=useSelector((store)=>store.chat)
 
-    // const [onlineUsers,setOnlineUsers]=useState([])
 
 
     useEffect(() => {
@@ -35,7 +34,6 @@ function Connections() {
         socket.on("onlineUsers",(onlineUsers)=>{
 
          dispatch(addOnlineUsers(onlineUsers))
-        //  setOnlineUsers(onlineUserId)
 
         })
 
