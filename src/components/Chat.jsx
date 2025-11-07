@@ -1,7 +1,10 @@
 import React, { useState,useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { createSocketConnection } from '../utils/socket'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import axios from 'axios'
+import { BASE_URL } from '../utils/constants'
+
 
 function Chat() {
 
@@ -11,34 +14,67 @@ function Chat() {
     const {targetUserId}=useParams()
     const [messages,setMessages]=useState([])
     const [newMessage,setNewMessage]=useState("")
+    // const dispatch=useDispatch()
+
+    const fetchMessages=async()=>{
+
+        try{
+
+            const chat=await axios.get(BASE_URL+"/chat/"+targetUserId,{withCredentials:true})
+            console.log(chat.data.messages);
+            setMessages(chat.data.messages)
+
+            
+        }
+        catch(err){
+            console.log(err);
+            
+        }
+
+    }
+
+    useEffect(() => {
+      
+        fetchMessages()
+    
+      
+    }, [])
+    
 
     useEffect(() => {
 
        
-    if(!userId){
-        return
-    }
+            if(!userId){
+                return
+            }
 
-    const socket= createSocketConnection()
+            const socket= createSocketConnection()
 
-    socket.emit("joinChat",{userId,targetUserId})
+            
 
-    socket.on("messageReceived",({firstName,text})=>{
-        console.log(firstName+" : "+text);
-        setMessages((prevMessages) => [...prevMessages, { firstName, text }]);
-        
-    })
+            
+            socket.emit("joinChat",{userId,targetUserId})
 
-    return ()=>{
-        socket.disconnect()
-    }
+            socket.on("messageReceived",({firstName,lastName,text})=>{
+                console.log(firstName+" : "+text);
+                setMessages((prevMessages) => [...prevMessages, { firstName,lastName, text }]);
+                
+            })
+
+            return ()=>{
+                socket.disconnect()
+            }
 
     }, [userId,targetUserId])
+
+
+
+
 
     const sendMessage=()=>{
 
         const socket= createSocketConnection()
-        socket.emit("sendMessage",{firstName:user.firstName,userId,targetUserId,text:newMessage})
+        socket.emit("sendMessage",{firstName:user.firstName,lastName:user.lastName,userId,targetUserId,text:newMessage})
         setNewMessage("")
 
     }
@@ -52,22 +88,23 @@ function Chat() {
         <div className='p-5 border border-gray-600 rounded h-full overflow-y-auto'>
             {
 
-            messages.map((msg,index)=>{
+            messages?.map((msg,index)=>{
               return  (
 
-                <div key={index} className="chat chat-start">
+                <div key={index} className={"chat "+(user.firstName===msg.senderId.firstName? "chat-end":"chat-start")}>
                 <div className="chat-image avatar">
                     <div className="w-10 rounded-full">
                     <img
                         alt="Tailwind CSS chat bubble component"
-                        src="https://img.daisyui.com/images/profile/demo/kenobee@192.webp"
+                        src={msg.senderId.photoUrl}
                     />
                     </div>
                  </div>
 
                  <div className="chat-header">
-                            {msg.firstName}
-                            <time className="text-xs opacity-50">12:45</time>
+                            {msg.senderId.firstName+" "+msg.senderId.lastName}
+
+                            <time className="text-xs opacity-50">{new Date(msg.createdAt).toLocaleTimeString()}</time>
                  </div>
 
                         <div className="chat-bubble">{msg.text}</div>

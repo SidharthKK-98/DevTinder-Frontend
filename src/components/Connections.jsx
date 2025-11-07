@@ -4,13 +4,58 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { addConnection } from '../utils/connectionSlice';
 import { Link } from "react-router-dom";
+import { createSocketConnection } from '../utils/socket'
+import { addOnlineUsers } from '../utils/chatSlice'
+
 
 
 function Connections() {
 
+    const user=useSelector((store)=>store.user)
+    const userId=user?._id
+
     const dispatch=useDispatch()
     const connections=useSelector((store)=>store.connection)
-    console.log(connections);
+    console.log( connections)
+    const chat=useSelector((store)=>store.chat)
+
+    // const [onlineUsers,setOnlineUsers]=useState([])
+
+
+    useEffect(() => {
+
+        if(!userId){
+        return
+        }
+        
+        const socket= createSocketConnection()
+
+        socket.emit("usersConnected",{userId})
+
+        socket.on("onlineUsers",(onlineUsers)=>{
+
+         dispatch(addOnlineUsers(onlineUsers))
+        //  setOnlineUsers(onlineUserId)
+
+        })
+
+
+         return ()=>{
+                socket.disconnect()
+            }
+
+
+
+    }, [userId])
+
+    useEffect(() => {
+        console.log("this is from chatSlice",chat);
+
+    }, [chat])
+    
+    
+
+    // console.log("this is from chatSlice",chat);
     
 
     const fetchConnection=async()=>{
@@ -48,8 +93,10 @@ function Connections() {
 
         {      connections.map((connection)=>{
             return (
-            <div key={connection._id} className='flex justify-between text-center font-bold my-5 p-5 bg-base-300 rounded-2xl w-1/2 mx-auto items-center'>
-                    <div className='flex justify-around items-center '>   
+                <div >
+                     <div key={connection._id  } className='relative flex justify-between text-center font-bold my-5 p-5 bg-base-300 rounded-2xl w-1/2 mx-auto items-center'>
+                    <div className='flex justify-around items-center '> 
+  
                                 <div>
                                         <img 
                                             src={connection.photoUrl} 
@@ -68,10 +115,18 @@ function Connections() {
                     </div>
     
 
-                  <Link to={"/chat/"+connection._id}> <button className='btn btn-secondary '>Chat</button></Link> 
-            
+                  <Link to={"/chat/"+connection._id}> <button  className='btn btn-secondary  '>Chat
+
+                    </button></Link> 
+                    {chat.includes(connection._id.toString())&&
+                        (<span className="absolute top-2 right-2 indicator-item status status-success "></span>)
+
+                    }
 
             </div>
+
+  </div>
+           
 
             )
         })
