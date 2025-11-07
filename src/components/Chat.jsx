@@ -54,9 +54,12 @@ function Chat() {
             
             socket.emit("joinChat",{userId,targetUserId})
 
-            socket.on("messageReceived",({firstName,lastName,text})=>{
+            socket.on("messageReceived",({firstName,lastName,photoUrl,text,createdAt})=>{
                 console.log(firstName+" : "+text);
-                setMessages((prevMessages) => [...prevMessages, { firstName,lastName, text }]);
+                setMessages((prevMessages) => [...prevMessages,{ senderId:{ firstName,lastName,photoUrl}
+                    , text,
+                     createdAt: createdAt || new Date(),
+            }]);
                 
             })
 
@@ -71,9 +74,10 @@ function Chat() {
 
 
     const sendMessage=()=>{
+        if (!newMessage.trim()) return;
 
         const socket= createSocketConnection()
-        socket.emit("sendMessage",{firstName:user.firstName,lastName:user.lastName,userId,targetUserId,text:newMessage})
+        socket.emit("sendMessage",{firstName:user.firstName,lastName:user.lastName,photoUrl:user.photoUrl,userId,targetUserId,text:newMessage})
         setNewMessage("")
 
     }
