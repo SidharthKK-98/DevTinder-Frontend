@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { BASE_URL } from '../utils/constants'
@@ -11,7 +11,12 @@ const NavBar = () => {
   const user=useSelector((store)=>store.user)
   const dispatch=useDispatch()
   const navigate=useNavigate()
-  // console.log(user);
+  console.log(user);
+
+  useEffect(() => {
+   
+  }, [user])
+  
 
   const handleLogout=async()=>{
     try{
@@ -35,7 +40,7 @@ const NavBar = () => {
 
           {user && (
             <div className="dropdown dropdown-end flex items-center">
-              <p className='text-white mx-5'>Welcome {user?.firstName+" "+user?.lastName}</p>
+              <p className='text-white mx-5'>    Welcome {user?.firstName && user?.lastName ? `${user.firstName} ${user.lastName}` : ""}</p>
 
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
               

@@ -11,6 +11,7 @@ import Connections from './components/Connections'
 import Request from './components/Request'
 import Premium from './components/Premium'
 import Chat from './components/Chat'
+import ProtectedRoutes from './components/ProtectedRoutes'
 
 function App() {
 
@@ -23,14 +24,18 @@ function App() {
             <Route path='/' element={<Body/>}>
             
               <Route path='/login' element={<Login/>}/>
-              <Route path='/feed' element={<Feed/>}/>
-              <Route path='/connections' element={<Connections/>}/>
-              <Route path='/request' element={<Request/>}/>
 
-              <Route path='/profile' element={<Profile/>}/>
-              <Route path='/premium' element={<Premium/>}/>
-              <Route path='/chat/:targetUserId' element={<Chat/>}/>
+              <Route element={<ProtectedRoutes/>}>
 
+                  <Route path='/feed' element={<Feed/>}/>
+                  <Route path='/connections' element={<Connections/>}/>
+                  <Route path='/request' element={<Request/>}/>
+
+                  <Route path='/profile' element={<Profile/>}/>
+                  <Route path='/premium' element={<Premium/>}/>
+                  <Route path='/chat/:targetUserId' element={<Chat/>}/>
+                  
+             </Route>
 
 
 

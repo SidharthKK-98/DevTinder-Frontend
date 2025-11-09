@@ -139,7 +139,7 @@ function Chat() {
                             <time className="text-xs opacity-50">{new Date(msg.createdAt).toLocaleTimeString()}</time>
                  </div>
 
-                        <div className="chat-bubble">{msg.text}</div>
+                        <div className={"chat-bubble"+(user.firstName===msg.senderId?.firstName ? " bg-green-800 " : " bg-gray-450")}>{msg.text}</div>
                         <div className="chat-footer opacity-50">Delivered</div>
              </div>
 

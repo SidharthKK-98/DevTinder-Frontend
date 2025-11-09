@@ -37,7 +37,7 @@ const Login = () => {
              {withCredentials:true})
 
         console.log(res.data);
-        dispatch(addUser(res.data))
+        dispatch(addUser(res.data.user))
         alert(res.data.message)
         
         navigate("/feed",{replace:true})
