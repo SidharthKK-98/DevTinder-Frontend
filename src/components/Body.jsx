@@ -42,14 +42,12 @@ const Body = () => {
     
   }, [])
 
-  //  if (!userData) return null
 
   
   return (
     <div>
     <NavBar/>
     <Outlet/>
-    {/* <Footer/> */}
 
     </div>
   )
