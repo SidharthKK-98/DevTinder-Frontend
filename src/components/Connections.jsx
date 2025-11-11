@@ -86,16 +86,16 @@ function Connections() {
   return (
 
     
-    <div>
+    <div className="p-3 sm:p-5">
       <h1 className=' text-center text-2xl font-bold '>Connections</h1>
 
         {      connections?.map((connection)=>{
             return (
                 <div >
-                     <div key={connection._id  } className='relative flex justify-between text-center font-bold my-5 p-5 bg-base-300 rounded-2xl w-1/2 mx-auto items-center'>
+                     <div key={connection._id  } className='relative flex flex-col m-4 sm:flex-row justify-between items-center text-center sm:text-left font-bold p-4 sm:p-5 bg-base-300 rounded-2xl w-full sm:w-3/4 md:w-2/3 lg:w-1/2 mx-auto shadow-md'>
                     <div className='flex justify-around items-center '> 
   
-                                <div>
+                                <div className='flex flex-col sm:flex-row items-center gap-4 sm:gap-8'>
                                         <img 
                                             src={connection.photoUrl} 
                                             alt={`${connection.firstName} ${connection.lastName}`} 
@@ -104,7 +104,7 @@ function Connections() {
                                 </div>  
                                 
                                 <div className='mx-10'>
-                                    <div className='text-3xl' key={connection._id}>{connection.firstName+" "+connection.lastName}</div>
+                                    <div className='text-3xl sm:text-2xl' key={connection._id}>{connection.firstName+" "+connection.lastName}</div>
                                     <div key={connection._id}>{connection?.age+" "+connection?.gender}</div>
                                     <div key={connection._id}>{connection?.about}</div>
 
@@ -112,10 +112,12 @@ function Connections() {
 
                     </div>
     
-
-                  <Link to={"/chat/"+connection._id}> <button  className='btn btn-secondary  '>Chat
+                  <div className="mt-4 sm:mt-0">
+                  <Link to={"/chat/"+connection._id}> <button  className='btn btn-secondary sm:btn-md  '>Chat
 
                     </button></Link> 
+
+                     </div>
                     {chat?.includes(connection._id.toString())&&
                         (<span className="absolute top-2 right-2 indicator-item status status-success "></span>)
 

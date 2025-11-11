@@ -25,7 +25,7 @@ const Body = () => {
 
     if(err.status==401){
        dispatch(removeUser());
-       navigate("/login",{replace:true})
+       navigate("/",{replace:true})
 
     }
     console.log(err);

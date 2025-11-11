@@ -2,6 +2,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Body from './components/Body'
+import LandingPage from './components/LandingPage'
 import Login from './components/Login'
 import Profile from './components/Profile'
 import { Provider } from 'react-redux'
@@ -21,8 +22,13 @@ function App() {
 
           <BrowserRouter basename='/'>
           <Routes>
-            <Route path='/' element={<Body/>}>
+
+
             
+
+              <Route  element={<Body/>}>
+              <Route path='/' element={<LandingPage />} />
+
               <Route path='/login' element={<Login/>}/>
 
               <Route element={<ProtectedRoutes/>}>
