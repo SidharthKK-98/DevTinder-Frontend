@@ -76,7 +76,7 @@ function Premium() {
   return (
     isPremiumUser?<div className='text-center mt-6 font-bold text-3xl text-orange-300'>You Are A Premium User</div> :
    ( <div className='m-4'>
-        <div className="flex w-full mt-6">
+        <div className="flex flex-col lg:flex-row  w-full mt-6">
         <div className="card bg-base-300 rounded-box grid h-auto p-4 grow place-items-center">
             <h1 className='font-bold text-2xl'>Silver Membership</h1>
             <ul className='mt-2'>
@@ -87,7 +87,7 @@ function Premium() {
             </ul>
             <button onClick={()=>handleBuyClick("silver")} className='btn btn-secondary mt-4 p-2'>Buy Now</button>
         </div>
-        <div className="divider divider-horizontal">OR</div>
+        <div className=" divider divider-vertical lg:divider-horizontal">OR</div>
         <div className="card bg-base-300 rounded-box grid h-auto p-4 grow place-items-center">
             <h1 className='font-bold text-2xl'>Gold Membership</h1>
             <ul className='mt-2'>

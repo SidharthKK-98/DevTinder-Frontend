@@ -70,7 +70,7 @@ const Login = () => {
                 password
             },{withCredentials:true})
             
-            dispatch(addUser(res.data))
+            dispatch(addUser(res.data.user))
             alert(res.data.message)
             navigate("/profile",{replace:true})
 
