@@ -114,10 +114,10 @@ function Chat() {
 
 
   return (
-    <div className='w-1/2 sm:w-3/4 md:w-2/3 lg:w-1/2 mx-auto  border-2 border-gray-600 rounded m-5 overflow-x-hidden h-dvh flex flex-col '>
+    <div className='w-full sm:w-3/4 md:w-2/3 lg:w-1/2 mx-auto  border-2 border-gray-600 rounded m-5 overflow-x-hidden h-dvh flex flex-col '>
         <h1 className='text-center text-blue-300 font-bold text-2xl p-5 border-b border-gray-600'>Chat</h1>
         
-        <div className='flex-1 p-3 sm:p-5 p-5 border border-gray-600 rounded h-full overflow-y-auto'>
+        <div className='flex-1  sm:p-5 p-5 border border-gray-600 rounded h-full overflow-y-auto'>
             {
 
             messages?.map((msg,index)=>{
@@ -154,8 +154,8 @@ function Chat() {
         
         </div>
 
-        <div className='flex justify-center gap-2 sm:p-4 m-5 w-full  '>
-            <input value={newMessage} onChange={(e)=>setNewMessage(e.target.value)} type="text" placeholder="Type here" className="input w-3/4" />
+        <div className='flex justify-center gap-2 sm:p-4 m-5 w-full   '>
+            <input value={newMessage} onChange={(e)=>setNewMessage(e.target.value)} type="text" placeholder="Type here" className="input  w-2/3 sm:3/4 lg:w-3/4" />
             <button onClick={sendMessage} className='btn btn-secondary'>Send</button>
         </div>
 
