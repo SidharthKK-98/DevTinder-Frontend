@@ -69,6 +69,8 @@ const Login = () => {
                 emailId,
                 password
             },{headers: { "Content-Type": "application/json" },withCredentials:true})
+
+            
             
             dispatch(addUser(res.data.user))
             alert(res.data.message)
@@ -78,7 +80,9 @@ const Login = () => {
 
         }
         catch(err){
-            setError(err.response)
+
+            const message =err.response?.data?.message ||"Something went wrong. Please try again."
+            setError(message)
             
         }
     }
