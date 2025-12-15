@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import UserCard from './UserCard'
 import axios from 'axios';
 import { BASE_URL } from '../utils/constants';
@@ -16,7 +16,7 @@ const EditProfile = ({user}) => {
     const [photoUrl,setPhotoUrl]=useState(user?.photoUrl)
     const [about,setAbout]=useState(user?.about)
 
-    const [error,setError]=useState("")
+    // const [error,setError]=useState("")
     const dispatch=useDispatch()
 
     const handleEdit=async()=>{
@@ -29,7 +29,7 @@ const EditProfile = ({user}) => {
         catch(err){
             const message = err.response?.data || "Something went wrong";
 
-            setError(message)
+            // setError(message)
             // console.log( err.response?.data);
             
             alert(message)
